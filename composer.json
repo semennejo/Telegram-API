@@ -1,5 +1,5 @@
 {
-  "name": "Semenlitvin/Telegram-API",
+  "name": "semenlitvin/telegram-api",
   "description": "PHP library for working with Telegram API",
   "type": "library",
   "require": {
