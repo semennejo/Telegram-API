@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace Telegram\method;
 
-readonly class sendMessage {
+class SendMessage implements Method {
 
     public function __construct(
-        private ?string $businessConnectionId,
-        private int $chatId,
-        private ?int $messageThreadId,
-        private string $text,
-        private ?string $parseMode
+        public int $chatId,
+        public string $text,
+        public ?string $businessConnectionId = null,
+        public ?int $messageThreadId = null,
+        public ?string $parseMode = null
     ) {}
+
+    public function getName() : string {
+        return 'sendMessage';
+    }
 
     public function toArray() : array {
         return [
@@ -23,5 +27,4 @@ readonly class sendMessage {
             'parse_mode' => $this->parseMode
         ];
     }
-
 }

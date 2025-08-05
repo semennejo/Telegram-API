@@ -52,7 +52,7 @@ readonly class User {
         return $this->firstName;
     }
 
-    public function getLastName(): string {
+    public function getLastName(): ?string {
         return $this->lastName;
     }
 

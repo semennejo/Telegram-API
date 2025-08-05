@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Telegram\method;
 
-readonly class getUpdates {
+class GetUpdates implements Method {
 
     public function __construct(
-        private ?int $offset,
-        private ?int $limit,
-        private ?int $timeout,
-        private null|array|string $allowed_updates
+        public ?int $offset = null,
+        public ?int $limit = null,
+        public ?int $timeout = null,
+        public null|array|string $allowed_updates = null
     ) {}
+
+    public function getName() : string {
+        return 'getUpdates';
+    }
 
     public function toArray() : array {
         return [
@@ -21,5 +25,4 @@ readonly class getUpdates {
             'allowed_updates' => $this->allowed_updates,
         ];
     }
-
 }

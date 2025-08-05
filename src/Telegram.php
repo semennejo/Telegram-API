@@ -7,10 +7,9 @@ namespace Telegram;
 use Telegram\method\Method;
 use Telegram\types\Message;
 use Telegram\utils\Internet;
+use Telegram\utils\Utils;
 
 readonly class Telegram {
-
-    private Method $method;
     private Internet $internet;
 
     public function __construct(
@@ -18,7 +17,6 @@ readonly class Telegram {
         private array $input
     ){
         $this->internet = new Internet($token);
-        $this->method = new Method($this);
     }
 
     public function getToken() : string {
@@ -29,16 +27,18 @@ readonly class Telegram {
         return $this->input;
     }
 
-    public function getMethod() : Method {
-        return $this->method;
+    public function sendMethod(Method $method, bool $clean = true) : void {
+        $array = $method->toArray();
+
+        if ($clean) {
+            Utils::cleanArray($array);
+        }
+
+        $this->internet->request($method->getName(), $array);
     }
 
     public function getInternet() : Internet {
         return $this->internet;
-    }
-
-    public function getUpdateId() : int {
-        return $this->input['update_id'];
     }
 
     public function getMessage() :  ?Message {
